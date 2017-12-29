@@ -25,22 +25,9 @@ services:
     ports:
       - '11211'
 
-  elasticsearch:
-    container_name: 'homeland_elasticsearch'
-    image: elasticsearch:5-alpine
-    environment:
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
-    mem_limit: 1g
-    volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
-    ports:
-      - '9200'
-      - '9300'
-
   web:
     container_name: 'homeland_web'
-    image: homeland/homeland:3.0.10
+    image: homeland/homeland:latest
     links:
       - app
       - app_backup
@@ -58,13 +45,12 @@ services:
 
   app: &app_base
     container_name: 'homeland_app'
-    image: homeland/homeland:3.0.10
+    image: homeland/homeland:latest
     env_file:
       - app.default.env
       - app.local.env
       - app.secret.env
     links:
-      - elasticsearch
       - postgresql
       - memcached
       - redis
