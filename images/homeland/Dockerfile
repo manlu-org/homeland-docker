@@ -5,6 +5,9 @@ MAINTAINER Jason Lee "https://github.com/huacnlee"
 ENV RAILS_ENV 'production'
 
 
+RUN apt-get install -yy libxslt-dev libxml2-dev
+
+
 RUN useradd ruby -s /bin/bash -m -U &&\
     mkdir -p /var/www &&\
     cd /var/www &&\
